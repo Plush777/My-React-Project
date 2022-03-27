@@ -2,6 +2,8 @@ import ReactFullpage from '@fullpage/react-fullpage';
 import { useState,useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import ReadMe from './ReadMe';
+import Stack from './Stack';
+import Projects from './Projects';
 
 const anchors = ['section1', 'section2','section3','section4'];
 const Fullpage = () => {
@@ -25,15 +27,7 @@ const Fullpage = () => {
             sectionsColor={['#292a2d', '#ddd', '#292a2d', '#ddd']}
             scrollingSpeed={800}
             onLeave={(origin, index) => {
-                if(origin.index === 0){
-                    const fpNav = document.getElementById('fp-nav');
-                    fpNav.children[0].children[0].children[0].children[0].style.background = '#fff';
-                    console.log(origin.index);
-                } else if(origin.index === 1){
-                    console.log(origin.index);
-                } else if(origin.index === 2){
-                    console.log(origin.index);
-                }
+                
             }}
             render={({ state, fullpageApi }) => {
                 return (
@@ -43,16 +37,17 @@ const Fullpage = () => {
                             {
                                 helpMsg === true ? (<Bubble/>) : null
                             }
-                                <ReadMe>
-                                    
-                                </ReadMe>
+                                <ReadMe/>
+                                <Intro/>
                             </h1>
                         </div>
                         <div className="section">
-                            <h1>Section 2</h1>
+                            <h1>
+                                <Stack/>
+                            </h1>
                         </div>
                         <div className="section">
-                            <h1>Section 3</h1>
+                            <h1><Projects/></h1>
                         </div>
                         <div className="section">
                             <h1>Section 4</h1>
@@ -66,12 +61,31 @@ const Fullpage = () => {
 
 function Bubble() {
     return (
-      <div className="help bubble">
-        <div className="moveTxt">
-          <span>readMe !</span>
+        <div className="help bubble">
+            <div className="moveTxt">
+                <span>readMe !</span>
+            </div>
         </div>
-      </div>
     );
-  }
+}
 
+function Intro() {
+    return(
+        <>
+            <div className="secTxt">
+                <h1>
+                    <strong className="boldType yellow">안</strong>녕하세요<br/>
+                    프론트엔드 개발자를 꿈꾸는<br/>
+                    <strong className="boldType sky name txtBgType white">Plush</strong>입니다!
+                </h1>
+            </div>
+            <div className="scrollDown">
+                <div id="mouseDown"></div>
+                <div className="moveTxt">
+                    <span>Scroll down</span>
+                </div>
+            </div>
+        </>
+    )
+}
 export default Fullpage;
