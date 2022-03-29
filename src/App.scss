@@ -152,12 +152,14 @@ body,html{font-family:'Noto Sans DemLight', Dotum, sans-serif;font-size:13px;col
  
   &.projectPage{
     &.hover{
-      .projectList .project:hover{
-        .preview{opacity: 0.5;}
-        .desc,.linkArea,.shortArea{opacity: 1; visibility: visible;}
-        &.indigoBg{background-color: rgba($color: #000080, $alpha: 0.7);}
-        &.grayScale{background-color: rgba($color: #333, $alpha: 0.7);}
-        &.deepPurple{background-color: rgba($color: #181b65, $alpha: 0.7);}
+      .projectList .project{
+        &:hover{
+          &:first-of-type{background-color: rgba($color: #000080, $alpha: 0.7);}
+          &:nth-of-type(2){background-color: rgba($color: #181b65, $alpha: 0.7);}
+          &:nth-of-type(3),&:nth-of-type(4),&:nth-of-type(5),&:nth-of-type(6){background-color: rgba($color: #333, $alpha: 0.7);}
+          .preview{opacity: 0.5;}
+          .desc,.linkArea,.shortArea{opacity: 1; visibility: visible;}
+        }
       }
     }
     .projectList{display: flex; flex-wrap: wrap; justify-content: center; gap: 20px;
@@ -188,16 +190,10 @@ body,html{font-family:'Noto Sans DemLight', Dotum, sans-serif;font-size:13px;col
             a{display: block;}
           }
         }
-        .preview{width: 100%;height: 100%; transition: .5s ease-in-out; background-repeat: no-repeat; background-image: url("./images/common/cm-sprite.png");
-          &.kasm{position: absolute; left: 20px; top: 130px; background-image: url("./images/common/cm-kasm-logo.png");}
-          &.ft{background-position: 0px -333px;}
-          &:is(.sec,.th,.fu,.fh,.sx){background-position: 0px -2414px;}
-          // &.sec{}
-          // &.th{}
-          // &.fu{}
-          // &.fh{}
-          // &.sx{}
-        }
+        .preview{width: 100%;height: 100%; transition: .5s ease-in-out; background-repeat: no-repeat; background-image: url("./images/common/cm-sprite.png");}
+        &:first-of-type .preview{background-position: 0px -333px;}
+        &:nth-of-type(2) .preview{position: absolute; left: 20px; top: 130px; background-image: url("./images/common/cm-kasm-logo.png");}
+        & :where(&:nth-of-type(3) .preview,&:nth-of-type(4) .preview,&:nth-of-type(5) .preview,&:nth-of-type(6) .preview){background-position: 0px -2414px;}
       }
     }
     .mobilePList{display: none;}

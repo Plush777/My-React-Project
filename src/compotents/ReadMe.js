@@ -1,9 +1,9 @@
-import { useState,useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import InfoData from './info';
 
-function ReadMe(){
+function ReadMe() {
 
     let [readMe, setReadMe] = useState(true);
     let [age, setAge] = useState('');
@@ -16,10 +16,10 @@ function ReadMe(){
     const posRight = () => {
         let btnReadMe = document.getElementsByClassName('readMe');
         let readMeIcon = document.getElementsByClassName('readMeIcon');
-        if(readMe === true){
+        if (readMe === true) {
             readMeIcon[0].style.transform = 'rotate(-180deg)';
             btnReadMe[0].style.right = '0';
-        }else if(readMe === false){
+        } else if (readMe === false) {
             readMeIcon[0].style.transform = 'rotate(0deg)';
             btnReadMe[0].style.right = '-400px';
         }
@@ -30,18 +30,18 @@ function ReadMe(){
     useEffect(() => {
         let today = new Date();
         let birthDate = new Date('2002,11,19');
-        let myAge = today.getFullYear() - birthDate.getFullYear()+1;
+        let myAge = today.getFullYear() - birthDate.getFullYear() + 1;
         setAge('나이 : ' + myAge);
     }, []);
 
-    return(
+    return (
         <>
             <div className="readMe">
                 <button type="button" className="btnReadMeToggle" onClick={posRight}>
                     <svg className='readMeIcon' width="16" height="16" viewBox="0 0 16 16">
                         <g id="다각형_2" data-name="다각형 2" transform="translate(0 16) rotate(-90)">
-                            <path d="M 15.19098472595215 15.5 L 0.8090149760246277 15.5 L 8 1.118029952049255 L 15.19098472595215 15.5 Z" stroke="none"/>
-                            <path d="M 8 2.236069679260254 L 1.618035316467285 15 L 14.38196468353271 15 L 8 2.236069679260254 M 8 0 L 16 16 L 0 16 L 8 0 Z" stroke="none" fill="#000"/>
+                            <path d="M 15.19098472595215 15.5 L 0.8090149760246277 15.5 L 8 1.118029952049255 L 15.19098472595215 15.5 Z" stroke="none" />
+                            <path d="M 8 2.236069679260254 L 1.618035316467285 15 L 14.38196468353271 15 L 8 2.236069679260254 M 8 0 L 16 16 L 0 16 L 8 0 Z" stroke="none" fill="#000" />
                         </g>
                     </svg>
                 </button>
@@ -58,20 +58,18 @@ function ReadMe(){
                                 <p>닉네임 : <span className="txtColorType sky">Plush</span></p>
                                 <p>{age}</p>
                                 <p>
-                                    <Link to='/' onClick={() => window.location='mailto:sky11916@naver.com'}>이메일 : {email}</Link>
+                                    <a href='mailto:sky11916@naver.com'>이메일 : {email}</a>
                                 </p>
                                 <p>
-                                    <Link to='/' onClick={() => window.location='https://www.instagram.com/tjrbdud_02/'}>인스타 : {instagramId}</Link>
+                                    <a href='https://www.instagram.com/tjrbdud_02/' target={"_blank"}>인스타 : {instagramId}</a>
                                 </p>
                                 <p>MBTI : {mbtiInfo}</p>
                             </div>
                         </div>
                         {
                             info.map((info, index) => {
-                                return(
-                                    <>
-                                        <RowInfo rowInfoData={info} key={index}></RowInfo>
-                                    </>
+                                return (
+                                    <RowInfo rowInfoData={info} key={index}></RowInfo>
                                 )
                             })
                         }
@@ -124,7 +122,7 @@ function ReadMe(){
                             </div>
                             <div className="infoArea">
                                 <p>최신 문법에 관심이 많고, 자바스크립트에 대해 많은 고민 중인
-                                1년차 초보 퍼블리셔입니다. 아직은 부족하더라도 지켜봐주세요!
+                                    1년차 초보 퍼블리셔입니다. 아직은 부족하더라도 지켜봐주세요!
                                 </p>
                             </div>
                         </div>
@@ -135,16 +133,32 @@ function ReadMe(){
     )
 }
 
-function RowInfo(props){
-    return(
+function RowInfo(props) {
+
+    let text = '';
+    if (props.rowInfoData.text != null) {
+        text = <p className='bullet'>{props.rowInfoData.text}</p>
+    }
+
+    let text02 = '';
+    if (props.rowInfoData.text02 != null) {
+        text02 = <p className='bullet'>{props.rowInfoData.text02}</p>
+    }
+
+    let desc = '';
+    if (props.rowInfoData.desc != null) {
+        desc = <p>{props.rowInfoData.desc}</p>
+    }
+
+    return (
         <div className="row colType">
             <div className="infoTitle">
                 <strong>{props.rowInfoData.title}</strong>
             </div>
             <div className="infoArea">
-                <p className='bullet'>{props.rowInfoData.text}</p>
-                <p className='bullet'>{props.rowInfoData.text02}</p>
-                <p>{props.rowInfoData.desc}</p>
+                {text}
+                {text02}
+                {desc}
             </div>
         </div>
     )

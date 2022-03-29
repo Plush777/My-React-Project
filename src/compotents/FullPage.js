@@ -1,13 +1,15 @@
 import ReactFullpage from '@fullpage/react-fullpage';
-import { useState,useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import ReadMe from './ReadMe';
 import Stack from './Stack';
 import Projects from './Projects';
+import Contact from './Contact';
 
-const anchors = ['section1', 'section2','section3','section4'];
+const anchors = ['section1', 'section2', 'section3', 'section4'];
 const Fullpage = () => {
     let [helpMsg, setHelpMsg] = useState(true);
+    let [readMe, setReadMe] = useState(true);
     useEffect(() => {
         let helpMsg = setTimeout(() => {
             setHelpMsg(false);
@@ -27,34 +29,36 @@ const Fullpage = () => {
             sectionsColor={['#292a2d', '#ddd', '#292a2d', '#ddd']}
             scrollingSpeed={800}
             onLeave={(origin, index) => {
-                
+                if (origin.index === 1 && readMe === true) {
+                    setReadMe(false);
+                }
             }}
             render={({ state, fullpageApi }) => {
                 return (
                     <ReactFullpage.Wrapper>
                         <div className="section">
                             <h1>
-                            {
-                                helpMsg === true ? (<Bubble/>) : null
-                            }
-                                <ReadMe/>
-                                <Intro/>
+                                {
+                                    helpMsg === true ? (<Bubble />) : null
+                                }
+                                <ReadMe />
+                                <Intro />
                             </h1>
                         </div>
                         <div className="section">
                             <h1>
-                                <Stack/>
+                                <Stack />
                             </h1>
                         </div>
                         <div className="section">
-                            <h1><Projects/></h1>
+                            <h1><Projects /></h1>
                         </div>
                         <div className="section">
-                            <h1>Section 4</h1>
+                            <h1><Contact /></h1>
                         </div>
                     </ReactFullpage.Wrapper>
                 );
-        }}
+            }}
         />
     );
 }
@@ -70,12 +74,12 @@ function Bubble() {
 }
 
 function Intro() {
-    return(
+    return (
         <>
             <div className="secTxt">
                 <h1>
-                    <strong className="boldType yellow">안</strong>녕하세요<br/>
-                    프론트엔드 개발자를 꿈꾸는<br/>
+                    <strong className="boldType yellow">안</strong>녕하세요<br />
+                    프론트엔드 개발자를 꿈꾸는<br />
                     <strong className="boldType sky name txtBgType white">Plush</strong>입니다!
                 </h1>
             </div>
