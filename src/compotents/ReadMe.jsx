@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect , useRef } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import InfoData from './info';
@@ -11,10 +11,10 @@ function ReadMe() {
     let [instagramId, setInstagramId] = useState('@tjrbdud_02');
     let [mbtiInfo, setMbtiInfo] = useState('INFP');
     let [info, setInfo] = useState(InfoData);
-    // console.log(info);
+    const ref = useRef();
 
+    let btnReadMe = document.getElementsByClassName('readMe');
     const posRight = () => {
-        let btnReadMe = document.getElementsByClassName('readMe');
         let readMeIcon = document.getElementsByClassName('readMeIcon');
         if (readMe === true) {
             readMeIcon[0].style.transform = 'rotate(-180deg)';
@@ -34,10 +34,27 @@ function ReadMe() {
         setAge('나이 : ' + myAge);
     }, []);
 
+    useEffect(() => {
+        document.addEventListener("mousedown",handleClick);
+        return () => {
+            document.removeEventListener("mousedown",handleClick);
+        }
+    }, []);
+
+    const handleClick = (e) => {
+        if (ref.current && !ref.current.contains(e.target)) {
+            setReadMe(false);
+        }
+        console.log('click');
+    }
+
     return (
         <>
             <div className="readMe">
-                <button type="button" className="btnReadMeToggle" onClick={posRight}>
+                <button type="button" className="btnReadMeToggle" onClick={() => {
+                    posRight()
+                }
+                } ref={ref}>
                     <svg className='readMeIcon' width="16" height="16" viewBox="0 0 16 16">
                         <g id="다각형_2" data-name="다각형 2" transform="translate(0 16) rotate(-90)">
                             <path d="M 15.19098472595215 15.5 L 0.8090149760246277 15.5 L 8 1.118029952049255 L 15.19098472595215 15.5 Z" stroke="none" />
