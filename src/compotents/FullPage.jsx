@@ -29,8 +29,32 @@ const Fullpage = () => {
             sectionsColor={['#292a2d', '#ddd', '#292a2d', '#ddd']}
             scrollingSpeed={800}
             onLeave={(origin, index) => {
-                if (origin.index === 1 && readMe === true) {
-                    setReadMe(false);
+                let timeOut = () => {
+                    setTimeout(() => {
+                        let moveBorder = document.querySelectorAll('.moveBorder');
+                        for (let i = 0; i < moveBorder.length; i++) {
+                            moveBorder[i].style.opacity = 0;
+                        }
+                        clearTimeout(timeOut);
+                    }, 4500);
+                }
+
+                //inedx만큼 반복
+                for (let i = 0; i < index; i++) {
+                    timeOut();
+                }
+
+                if (origin.index === 0) {
+                    let secTitle = document.querySelectorAll('.secTitle');
+                    secTitle[0].classList.add('s02_active');
+                } else if(origin.index === 1){
+                    let secTitle = document.querySelectorAll('.secTitle');
+                    secTitle[0].classList.remove('s02_active');
+                    secTitle[1].classList.add('s03_active');
+                } else if(origin.index === 2){
+                    let secTitle = document.querySelectorAll('.secTitle');
+                    secTitle[1].classList.remove('s03_active');
+                    secTitle[2].classList.add('s04_active');
                 }
             }}
             render={({ state, fullpageApi }) => {

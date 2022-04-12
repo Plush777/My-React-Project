@@ -41,20 +41,21 @@ function ReadMe() {
         }
     }, []);
 
-    const handleClick = (e) => {
-        if (ref.current && !ref.current.contains(e.target)) {
+    const handleClick = e => {
+        // if (ref.current && !ref.current.contains(e.target)) {
+        //     setReadMe(false);
+        // }
+        if (readMe && !ref.current.contains(e.target)){
             setReadMe(false);
         }
+
         console.log('click');
     }
 
     return (
         <>
-            <div className="readMe">
-                <button type="button" className="btnReadMeToggle" onClick={() => {
-                    posRight()
-                }
-                } ref={ref}>
+            <div className="readMe" ref={ref}>
+                <button type="button" className="btnReadMeToggle" onClick={() => {posRight()}}>
                     <svg className='readMeIcon' width="16" height="16" viewBox="0 0 16 16">
                         <g id="다각형_2" data-name="다각형 2" transform="translate(0 16) rotate(-90)">
                             <path d="M 15.19098472595215 15.5 L 0.8090149760246277 15.5 L 8 1.118029952049255 L 15.19098472595215 15.5 Z" stroke="none" />
