@@ -75,7 +75,7 @@ body,html{font-family:'Noto Sans DemLight', Dotum, sans-serif;font-size:13px;col
   font-family: 'RecipeKorea'; font-size: 62px; color: #fff; transition: .6s ease-in-out;
     p{position: relative; text-shadow:-1px -1px 0 #333,1px -1px 0 #333,-1px 5px 0 #333,1px 1px 0 #333;}
     .moveBorder{position: absolute;height: 10px; bottom: 0; border-radius: 4px;
-      background-color: #fff; transition: .5s;}
+      background-color: #fff; transition: .5s; opacity: 1;}
     &.s02{
       &.s02_active{
         .moveBorder{animation: borderRight 2s 2s forwards;}
@@ -227,7 +227,7 @@ i{display: inline-block; background-repeat: no-repeat;
 
 /* ReadMe tooltip */
 .help{position: absolute;
-  &.bubble{right: 75px; top: 130px; 
+  &.bubble{right: 75px; top: 130px; transition: .5s;
     .moveTxt{position: relative; height: 40px; border-radius: 15px; padding: 6px 12px 6px 12px; 
     box-sizing: border-box; background-color: #fff; animation: 0.5s helpTooltip infinite alternate;
       span{font-family: 'RecipeKorea'; display: inline-block; line-height: 32px; letter-spacing: -1px; 
@@ -537,7 +537,7 @@ background-color: #fff; z-index: 100; transition: .5s ease-in-out; border-radius
       &.projectPage{width: 76%;
         .projectList{display: none;}
         .mobilePList{display: block;
-          .swiper-container{border-radius: 10px;
+          .swiper{border-radius: 10px;
             .swiper-wrapper{
               .project{position: relative; height: 47vh;background-color: #fff;
                 .linkArea{position: absolute; top: 80%; left: 50%; transform: translateX(-50%);
@@ -557,14 +557,11 @@ background-color: #fff; z-index: 100; transition: .5s ease-in-out; border-radius
                 }
               }
             }
-            .slideMoveArea button{width: 50px; height: 33px;
-              &:before,&:after{content: ''; display: inline-block; background-repeat: no-repeat;} 
-              &.swiper-button-prev{animation: mobileSlidePrev 0.5s infinite alternate;
-                &:after{width: 50px; height: 33px; background-image: url("./images/ico/ico-slide-prev.png");}
-              }
-              &.swiper-button-next{animation: mobileSlideNext 0.5s infinite alternate;
-                &:before{width: 50px; height: 33px; background-image: url("./images/ico/ico-slide-next.png");}
-              }
+            .swiper-button-prev{animation: mobileSlidePrev 0.5s infinite alternate;
+              &:after{content: ''; position: absolute; width: 50px; height: 33px; background-image: url("./images/ico/ico-slide-prev.png");}
+            }
+            .swiper-button-next{animation: mobileSlideNext 0.5s infinite alternate;
+              &:after{content: ''; position: absolute; width: 50px; height: 33px; background-image: url("./images/ico/ico-slide-next.png");}
             }
           }
         }
@@ -593,15 +590,22 @@ background-color: #fff; z-index: 100; transition: .5s ease-in-out; border-radius
       &.stacksPage{
         .moveTxt{font-size: 26px;}
         .stackList .stack{width: 115px;height: 115px; background-image: url("./images/mobile/m628-sprite.png");
-          &.html5{background-position: -455px -46px;}
-          &.scss{background-position: -1068px -49px;}
-          &.css3{background-position: -45px -47px;}
-          &.jquery{background-position: -658px -50px;}
-          &.git{background-position: -249px -47px;}
+          &:first-of-type{background-position: -455px -46px;}
+          &:nth-of-type(2){background-position: -1068px -49px;}
+          &:nth-of-type(3){background-position: -45px -47px;}
+          &:nth-of-type(4){background-position: -658px -50px;}
+          &:nth-of-type(5){background-position: -249px -47px;}
           &.xd{background-position: -1275px -47px;}
           &.ps{background-position: -865px -47px;}
           &.zeplin{background-position: -1481px -49px;}
           .desc span{font-size: 16px;}
+        }
+        &:last-child{
+          .row .stackList .stack{
+            &:first-of-type{background-position: -1275px -47px;}
+            &:nth-of-type(2){background-position: -865px -47px;}
+            &:nth-of-type(3){background-position: -1481px -49px;}
+          }
         }
       }
       &.projectPage{

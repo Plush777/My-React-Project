@@ -11,7 +11,7 @@ function ReadMe() {
     let [instagramId, setInstagramId] = useState('@tjrbdud_02');
     let [mbtiInfo, setMbtiInfo] = useState('INFP');
     let [info, setInfo] = useState(InfoData);
-    const ref = useRef();
+    const outsideRef = useOutside();
 
     let btnReadMe = document.getElementsByClassName('readMe');
     const posRight = () => {
@@ -34,27 +34,30 @@ function ReadMe() {
         setAge('나이 : ' + myAge);
     }, []);
 
-    useEffect(() => {
-        document.addEventListener("mousedown",handleClick);
-        return () => {
-            document.removeEventListener("mousedown",handleClick);
-        }
-    }, []);
+    //커스텀 훅
+    function useOutside(){
+        const ref = useRef();
 
-    const handleClick = e => {
-        // if (ref.current && !ref.current.contains(e.target)) {
-        //     setReadMe(false);
-        // }
-        if (readMe && !ref.current.contains(e.target)){
-            setReadMe(false);
-        }
+        useEffect(() => {
+            function handleOutSideClick(event) {
+                //readMe가 false일때는 이벤트 실행X
+                if (readMe === false && ref.current && !ref.current.contains(event.target)) {
+                    // console.log('외부클릭감지!');
+                    posRight();
+                }
+            }
+            document.addEventListener('click', handleOutSideClick);
+            return () => {
+                document.removeEventListener('click', handleOutSideClick);
+            };
+        });
 
-        console.log('click');
+        return ref;
     }
 
     return (
         <>
-            <div className="readMe" ref={ref}>
+            <div className="readMe" ref={outsideRef}>
                 <button type="button" className="btnReadMeToggle" onClick={() => {posRight()}}>
                     <svg className='readMeIcon' width="16" height="16" viewBox="0 0 16 16">
                         <g id="다각형_2" data-name="다각형 2" transform="translate(0 16) rotate(-90)">
